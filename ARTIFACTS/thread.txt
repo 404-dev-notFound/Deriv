@@ -1,0 +1,106 @@
+From: sarah.chen@company.com
+To: dev-team@company.com
+Date: Monday 9:02 AM
+Subject: API rate limiting — urgent
+
+Hi team,
+
+We are seeing a massive spike in 429 Too Many Requests errors on the main production API this morning. It looks like a few heavy users are starving the rest of the system. We need to figure out a mitigation plan immediately before this impacts our broader user base. 
+
+Thoughts on next steps?
+
+Sarah Chen
+Engineering Manager
+
+----------------------------------------
+
+From: james.t@company.com
+To: sarah.chen@company.com, dev-team@company.com
+Date: Monday 9:45 AM
+Subject: RE: API rate limiting — urgent
+
+> We need to figure out a mitigation plan immediately before this impacts our broader user base.
+
+I looked at the logs. We should probably increase the global rate limit temporarily to stop the bleeding. Long term, we need to implement a proper message queueing system so we aren't just dropping requests when the load gets high. I can talk to Infra about the rate limit bump.
+
+James
+
+----------------------------------------
+
+From: priya.m@company.com
+To: sarah.chen@company.com, dev-team@company.com
+Date: Monday 10:15 AM
+Subject: RE: API rate limiting — urgent
+
+Just a heads up, Client A's account manager just pinged me. They are furious because their automated syncs keep failing due to the 429 errors. 
+
+Since they are the ones polling us constantly, what if we ask them to migrate from REST polling to webhooks? That would drastically reduce the load on our servers. I can draft an email to their technical contact to suggest this migration.
+
+Priya
+
+----------------------------------------
+
+From: sarah.chen@company.com
+To: james.t@company.com, dev-team@company.com
+Date: Monday 11:00 AM
+Subject: RE: API rate limiting — urgent
+
+James, yes, let's get Infra to bump the global rate limit as a band-aid. Please put in the ticket.
+
+Also, we clearly lack documentation on how clients should handle backoff. James, can you draft a rate-limiting policy document that we can publish to the developer portal? We need to enforce exponential backoff.
+
+Sarah
+
+----------------------------------------
+
+From: david.legal@company.com
+To: priya.m@company.com, dev-team@company.com
+Date: Monday 1:30 PM
+Subject: RE: API rate limiting — urgent
+
+Hold on, Priya. Before you message Client A about webhooks, we need to review their contract. 
+
+I just checked their Master Service Agreement. Client A has a specific contractual SLA that guarantees them a throughput of 5,000 req/min. If we force them onto a webhook architecture that can't match that processing volume, we are opening ourselves up to a major legal risk and potential breach of contract. We need to be very careful how we phrase any architectural suggestions.
+
+David
+
+----------------------------------------
+
+From: james.t@company.com
+To: sarah.chen@company.com, dev-team@company.com
+Date: Monday 2:15 PM
+Subject: RE: API rate limiting — urgent
+
+Ticket submitted to Infra.
+
+Regarding the rate-limiting policy document—I completely agree we need one, but I am swamped this week with the database migration. Let's table the policy document for next sprint planning.
+
+James
+
+----------------------------------------
+
+From: alex.infra@company.com
+To: james.t@company.com, sarah.chen@company.com, dev-team@company.com
+Date: Monday 3:45 PM
+Subject: RE: API rate limiting — urgent
+
+Hey James, I saw the ticket. 
+
+I can bump the global limit by 20% to give us some breathing room, but anything beyond that risks crashing the database instance. Implementing queueing is going to require a code change on your end, it's not just an infra config. I'll push the 20% limit increase by EOD today.
+
+Alex
+
+----------------------------------------
+
+From: priya.m@company.com
+To: david.legal@company.com, dev-team@company.com
+Date: Monday 4:20 PM
+Subject: RE: API rate limiting — urgent
+
+> Client A has a specific contractual SLA that guarantees them a throughput of 5,000 req/min.
+
+Wow, good catch David. I completely missed that 5k req/min clause. I will still reach out to their technical contact, but I'll make sure to frame the webhook idea as an optional performance optimization rather than a hard requirement, and I will reassure them that their current throughput SLA will be maintained. 
+
+Sarah, I'll let you know how the call goes.
+
+Priya

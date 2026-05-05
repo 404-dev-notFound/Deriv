@@ -1,0 +1,115 @@
+From: alex@company.com
+To: priya@company.com, jordan@company.com
+Date: 2025-05-01T09:00:00Z
+Subject: Q2 Platform Performance Requirements
+
+Hi team,
+
+We need to finalize the performance requirements for our Q2 release. The current strategy targets 5k requests/min sustained throughput, but I'm concerned this might be aggressive given our current infrastructure.
+
+Key concerns:
+1. Database write bottleneck at scale
+2. Cache hit ratio needs to be monitored
+3. Load balancer config needs review
+
+What's everyone's take on this? Is 5k req/min realistic?
+
+Best,
+Alex
+
+---
+
+From: priya@company.com
+To: alex@company.com, jordan@company.com
+Date: 2025-05-01T10:15:00Z
+Subject: RE: Q2 Platform Performance Requirements
+
+Alex,
+
+I've been analyzing the load profile, and 5k req/min is technically feasible but risky. We'd need:
+- New database shards (2-3 additional)
+- Redis cluster upgrade to handle cache layer
+- Load testing budget of ~$15k
+
+The database team is concerned about sharding the auth service. That's a blocker for us.
+
+Also, we should discuss the SLA implications. If we commit to 5k req/min, we're looking at 99.95% uptime SLA guarantee. That's a big commitment.
+
+Priya
+
+---
+
+From: jordan@company.com
+To: alex@company.com, priya@company.com
+Date: 2025-05-01T11:30:00Z
+Subject: RE: Q2 Platform Performance Requirements
+
+Both,
+
+From the operations side, I can say that our current incident response SLA is 99.9%. Moving to 99.95% for a new platform will require:
+1. Upgraded monitoring (Prometheus + Grafana enterprise - $8k/year)
+2. On-call rotations (2 more team members)
+3. Runbooks for 50+ new failure scenarios
+
+I'm not saying it's impossible, but we need to resource this properly. The database sharding concern (mentioned by Priya) is also a blocker on my end—we can't failover sharded databases reliably with current tooling.
+
+Jordan
+
+---
+
+From: alex@company.com
+To: priya@company.com, jordan@company.com
+Date: 2025-05-01T14:00:00Z
+Subject: RE: Q2 Platform Performance Requirements
+
+Priya, Jordan,
+
+So we have TWO blockers:
+1. Database sharding (auth service concern from DB team)
+2. SLA/monitoring infrastructure (ops concern from Jordan)
+
+I think we need to loop in the database team and get clarity on the sharding constraint. Can one of you set up a meeting with them?
+
+Also, is there a middle-ground option? What if we go with 3k req/min initially and revisit 5k in Q3?
+
+Let me know thoughts.
+
+Alex
+
+---
+
+From: priya@company.com
+To: alex@company.com, jordan@company.com
+Date: 2025-05-01T15:45:00Z
+Subject: RE: Q2 Platform Performance Requirements
+
+Alex,
+
+I can reach out to the DB team on the sharding concern. That said, I want to flag a decision risk here:
+
+If we commit to ANY specific throughput number right now without resolving the sharding question, we risk shipping a system that can't actually be deployed to production. The DB team's concern isn't a "nice to have"—it's a hard blocker.
+
+My recommendation: Let's delay the Q2 release by 2 weeks and have the DB team present their sharding solution/workaround. Then we can make an informed decision on the final throughput target.
+
+The 3k req/min fallback is viable IF the DB team can confirm sharding is technically possible, even if risky.
+
+Priya
+
+---
+
+From: jordan@company.com
+To: alex@company.com, priya@company.com
+Date: 2025-05-01T16:30:00Z
+Subject: RE: Q2 Platform Performance Requirements
+
+I agree with Priya's risk assessment. A 2-week slip is better than shipping something that breaks in production.
+
+Here's what I propose:
+1. Priya reaches out to DB team (by EOW)
+2. We get their sharding assessment by next Tuesday
+3. We reconvene Thursday morning to decide on final throughput target
+4. We confirm SLA implications based on final throughput decision
+
+If DB team says sharding isn't viable, we should consider reducing to 1k req/min instead of 3k. I'd rather be conservative here.
+
+Jordan
