@@ -2,30 +2,31 @@
   "decisions": [
     {
       "decision_id": "D1",
-      "decision_text": "Priya will reach out to the database team regarding the sharding concern by end of week",
-      "made_by": "jordan@company.com",
-      "date": "2025-05-01T16:30:00Z",
+      "decision_text": "Priya will reach out to the database team regarding sharding concerns",
+      "made_by": "Priya (volunteered) and Jordan (confirmed in action plan)",
+      "date": "2025-05-01",
       "confidence": "confirmed",
       "email_id_sources": [
+        "EMAIL_5",
         "EMAIL_6"
       ]
     },
     {
       "decision_id": "D2",
-      "decision_text": "Team will reconvene Thursday morning to decide on final throughput target after receiving database team's sharding assessment",
-      "made_by": "jordan@company.com",
-      "date": "2025-05-01T16:30:00Z",
-      "confidence": "confirmed",
+      "decision_text": "Team will reconvene Thursday morning to decide on final throughput target after receiving DB team assessment",
+      "made_by": "Jordan (proposed action plan)",
+      "date": "2025-05-01",
+      "confidence": "implied",
       "email_id_sources": [
         "EMAIL_6"
       ]
     },
     {
       "decision_id": "D3",
-      "decision_text": "SLA implications will be confirmed based on final throughput decision",
-      "made_by": "jordan@company.com",
-      "date": "2025-05-01T16:30:00Z",
-      "confidence": "confirmed",
+      "decision_text": "Timeline: DB team sharding assessment due by next Tuesday, with team decision meeting on Thursday",
+      "made_by": "Jordan",
+      "date": "2025-05-01",
+      "confidence": "implied",
       "email_id_sources": [
         "EMAIL_6"
       ]
@@ -34,17 +35,26 @@
   "risks": [
     {
       "risk_id": "R1",
-      "risk_text": "5k req/min throughput target is aggressive and risky given current infrastructure, with database write bottleneck at scale",
-      "raised_by": "alex@company.com",
+      "risk_text": "5k req/min throughput target is technically feasible but risky without database sharding and infrastructure upgrades",
+      "raised_by": "Priya",
       "severity": "high",
       "email_id_sources": [
-        "EMAIL_1"
+        "EMAIL_2"
       ]
     },
     {
       "risk_id": "R2",
-      "risk_text": "Committing to 5k req/min requires 99.95% uptime SLA guarantee, which is a significant commitment increase from current 99.9%",
-      "raised_by": "priya@company.com",
+      "risk_text": "Committing to any specific throughput number without resolving the sharding question risks shipping a system that cannot be deployed to production",
+      "raised_by": "Priya",
+      "severity": "critical",
+      "email_id_sources": [
+        "EMAIL_5"
+      ]
+    },
+    {
+      "risk_id": "R3",
+      "risk_text": "Moving to 99.95% uptime SLA for 5k req/min is a big commitment requiring significant resources (monitoring upgrades, additional on-call staff, 50+ new runbooks)",
+      "raised_by": "Priya and Jordan",
       "severity": "high",
       "email_id_sources": [
         "EMAIL_2",
@@ -52,44 +62,36 @@
       ]
     },
     {
-      "risk_id": "R3",
-      "risk_text": "Cannot failover sharded databases reliably with current tooling",
-      "raised_by": "jordan@company.com",
-      "severity": "high",
-      "email_id_sources": [
-        "EMAIL_3"
-      ]
-    },
-    {
       "risk_id": "R4",
-      "risk_text": "Committing to any specific throughput number without resolving the sharding question risks shipping a system that cannot be deployed to production",
-      "raised_by": "priya@company.com",
-      "severity": "critical",
+      "risk_text": "Database write bottleneck at scale with current infrastructure",
+      "raised_by": "Alex",
+      "severity": "medium",
       "email_id_sources": [
-        "EMAIL_5"
+        "EMAIL_1"
       ]
     }
   ],
   "open_questions": [
     {
       "question_id": "Q1",
-      "question": "Is 5k req/min realistic given current infrastructure?",
+      "question": "Is 5k req/min realistic given current infrastructure constraints?",
       "related_emails": [
         "EMAIL_1"
       ]
     },
     {
       "question_id": "Q2",
-      "question": "Can the database team resolve or provide a workaround for the auth service sharding concern?",
+      "question": "Can the database team provide a viable sharding solution or workaround for the auth service?",
       "related_emails": [
         "EMAIL_2",
         "EMAIL_4",
-        "EMAIL_5"
+        "EMAIL_5",
+        "EMAIL_6"
       ]
     },
     {
       "question_id": "Q3",
-      "question": "What is the final throughput target: 5k, 3k, or 1k req/min?",
+      "question": "What is the final throughput target for Q2 release - 5k, 3k, or 1k req/min?",
       "related_emails": [
         "EMAIL_4",
         "EMAIL_5",
@@ -98,9 +100,8 @@
     },
     {
       "question_id": "Q4",
-      "question": "Should the Q2 release be delayed by 2 weeks to resolve database sharding concerns?",
+      "question": "What are the SLA implications based on the final throughput decision?",
       "related_emails": [
-        "EMAIL_5",
         "EMAIL_6"
       ]
     }
@@ -108,8 +109,8 @@
   "blockers": [
     {
       "blocker_id": "B1",
-      "blocker": "Database team is concerned about sharding the auth service",
-      "impact": "Prevents confirmation of any throughput target and deployment to production",
+      "blocker": "Database sharding of auth service - database team has concerns about feasibility",
+      "impact": "Hard blocker preventing commitment to any throughput target; risks inability to deploy system to production",
       "email_id_sources": [
         "EMAIL_2",
         "EMAIL_3",
@@ -119,16 +120,16 @@
     },
     {
       "blocker_id": "B2",
-      "blocker": "Cannot failover sharded databases reliably with current tooling",
-      "impact": "Prevents reliable operations for any sharded database architecture required for higher throughput",
+      "blocker": "Cannot reliably failover sharded databases with current tooling",
+      "impact": "Prevents operations team from supporting 99.95% SLA and higher throughput targets",
       "email_id_sources": [
         "EMAIL_3"
       ]
     },
     {
       "blocker_id": "B3",
-      "blocker": "SLA and monitoring infrastructure inadequate for 99.95% uptime commitment",
-      "impact": "Requires upgraded monitoring ($8k/year), 2 additional on-call team members, and 50+ new runbooks before committing to higher throughput targets",
+      "blocker": "Insufficient monitoring and operational infrastructure for 99.95% SLA commitment",
+      "impact": "Requires upgraded monitoring ($8k/year), 2 additional on-call team members, and 50+ new runbooks before 5k req/min target can be supported",
       "email_id_sources": [
         "EMAIL_3"
       ]

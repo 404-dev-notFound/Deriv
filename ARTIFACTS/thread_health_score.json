@@ -2,21 +2,21 @@
   "thread_health_score": {
     "clarity_of_ownership": {
       "score": 4,
-      "evidence": "EMAIL_6 clearly assigns Priya to reach out to database team by end of week (A1), and schedules Thursday morning reconvene with specific attendees (A3). Jordan explicitly owns decisions D1, D2, D3. Only minor ambiguity is 'Database team' as owner in A2 without specific individual named."
+      "evidence": "EMAIL_5 and EMAIL_6 clearly assign Priya to reach out to database team. EMAIL_6 establishes Jordan's action plan with specific owners for each step. Database team assigned assessment task with Tuesday deadline. Only minor ambiguity around who exactly attends Thursday meeting."
     },
     "decision_velocity": {
-      "score": 2,
-      "evidence": "Critical throughput decision (5k vs 3k vs 1k req/min) remains unmade after 6 emails spanning multiple days. EMAIL_6 defers final decision to 'Thursday morning' pending external input. C1 shows 'entire Q2 platform performance decision is blocked' with consideration of '2-week delay' to Q2 release timeline."
+      "score": 3,
+      "evidence": "Thread identifies critical blocker (sharding concerns) in EMAIL_2-3, but decision on throughput target is explicitly deferred to Thursday meeting (EMAIL_6). Two-week delay acknowledged. Decision-making is structured but not fast - waiting on external dependency before final commitment."
     },
     "risk_acknowledgement": {
-      "score": 3,
-      "evidence": "EMAIL_4 and EMAIL_6 explicitly flag sharding risk as blocking production deployment per Priya's statement about 'risks shipping a system that can't actually be deployed.' However, C2 identifies Jordan's failover limitation ('can't failover sharded databases reliably with current tooling') which 'remains unaddressed' with 'no solution or mitigation plan proposed' despite being identified as operational blocker."
+      "score": 5,
+      "evidence": "EMAIL_2 and EMAIL_4 explicitly flag sharding as 'hard blocker' with production deployment risk. EMAIL_3 identifies failover tooling as blocker for SLA. EMAIL_5 emphasizes risk of 'shipping a system that can't actually be deployed to production.' Risks are clearly surfaced, documented, and driving decision process."
     },
     "communication_quality": {
-      "score": 4,
-      "evidence": "Emails demonstrate professional discourse with clear technical reasoning (EMAIL_2, EMAIL_3, EMAIL_4 provide specific throughput analysis and constraints). EMAIL_6 provides structured next steps with specific deadlines and owners. Thread maintains focus on core issue. Minor deduction for C2 showing failover tooling constraint raised but not discussed or resolved."
+      "score": 5,
+      "evidence": "EMAIL_6 provides clear action plan with specific deadlines (EOW, Tuesday, Thursday). Thread shows professional escalation of concerns (EMAIL_2-5) with technical specificity. No confusion or misunderstandings evident. Actions and timelines explicitly stated and confirmed across multiple emails."
     },
-    "overall_health": 3,
-    "summary": "Thread shows good ownership clarity and professional communication, but suffers from stalled decision-making with critical Q2 decisions blocked on external dependency. Key risks are identified but not fully addressed (sharding acknowledged, failover tooling limitation unresolved). Team is organized but velocity is impaired by unresolved technical constraints."
+    "overall_health": 4,
+    "summary": "Healthy thread with excellent risk identification and communication quality. Ownership is clear with structured action plan. Decision velocity is moderate due to legitimate external dependency (database team assessment), but this is appropriately managed rather than ignored. Team is making deliberate, evidence-based decisions rather than rushing to commit without resolving critical blockers."
   }
 }

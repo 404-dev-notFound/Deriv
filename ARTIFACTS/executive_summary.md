@@ -4,34 +4,32 @@
 
 Key decisions made:
 
-- Priya will reach out to the database team regarding the sharding concern by end of week (made by jordan@company.com, confidence: confirmed)
-- Team will reconvene Thursday morning to decide on final throughput target after receiving database team's sharding assessment (made by jordan@company.com, confidence: confirmed)
-- SLA implications will be confirmed based on final throughput decision (made by jordan@company.com, confidence: confirmed)
+- Priya will reach out to the database team regarding sharding concerns (made by Priya (volunteered) and Jordan (confirmed in action plan), confidence: confirmed)
+- Team will reconvene Thursday morning to decide on final throughput target after receiving DB team assessment (made by Jordan (proposed action plan), confidence: implied)
+- Timeline: DB team sharding assessment due by next Tuesday, with team decision meeting on Thursday (made by Jordan, confidence: implied)
 
 ## Key Blockers
-- **Database team is concerned about sharding the auth service**: Prevents confirmation of any throughput target and deployment to production
-- **Cannot failover sharded databases reliably with current tooling**: Prevents reliable operations for any sharded database architecture required for higher throughput
-- **SLA and monitoring infrastructure inadequate for 99.95% uptime commitment**: Requires upgraded monitoring ($8k/year), 2 additional on-call team members, and 50+ new runbooks before committing to higher throughput targets
+- **Database sharding of auth service - database team has concerns about feasibility**: Hard blocker preventing commitment to any throughput target; risks inability to deploy system to production
+- **Cannot reliably failover sharded databases with current tooling**: Prevents operations team from supporting 99.95% SLA and higher throughput targets
+- **Insufficient monitoring and operational infrastructure for 99.95% SLA commitment**: Requires upgraded monitoring ($8k/year), 2 additional on-call team members, and 50+ new runbooks before 5k req/min target can be supported
 
 ## Immediate Next Actions
-- ✓ **Reach out to the database team regarding the sharding concern** (Owner: priya@company.com, Deadline: end of week)
-- ✓ **Reconvene to decide on final throughput target** (Owner: alex@company.com, priya@company.com, jordan@company.com, Deadline: Thursday morning)
-- → **Confirm SLA implications based on final throughput decision** (Owner: alex@company.com, priya@company.com, jordan@company.com, Deadline: TBD)
+- ✓ **Reach out to the database team regarding sharding concerns for auth service** (Owner: Priya, Deadline: by EOW (end of week))
 
 ## Unresolved Risks
-- **[HIGH]** 5k req/min throughput target is aggressive and risky given current infrastructure, with database write bottleneck at scale (raised by alex@company.com)
-- **[HIGH]** Committing to 5k req/min requires 99.95% uptime SLA guarantee, which is a significant commitment increase from current 99.9% (raised by priya@company.com)
-- **[HIGH]** Cannot failover sharded databases reliably with current tooling (raised by jordan@company.com)
+- **[HIGH]** 5k req/min throughput target is technically feasible but risky without database sharding and infrastructure upgrades (raised by Priya)
+- **[CRITICAL]** Committing to any specific throughput number without resolving the sharding question risks shipping a system that cannot be deployed to production (raised by Priya)
+- **[HIGH]** Moving to 99.95% uptime SLA for 5k req/min is a big commitment requiring significant resources (monitoring upgrades, additional on-call staff, 50+ new runbooks) (raised by Priya and Jordan)
 
 ## Unresolved Tensions
-- **unresolved_dependency**: The entire Q2 platform performance decision is blocked waiting on the database team to resolve auth service sharding concerns. Neither throughput target (5k, 3k, or 1k req/min) can be finalized until the database team provides their assessment.
-  - Why it matters: Priya explicitly states that committing to any throughput number without resolving the sharding question 'risks shipping a system that can't actually be deployed to production.' This dependency blocks the entire Q2 release timeline and forces consideration of a 2-week delay.
-- **unaddressed_risk**: The inability to reliably failover sharded databases with current tooling has been identified by Jordan as a blocker, but no solution or mitigation plan has been proposed or discussed in the thread.
-  - Why it matters: Jordan states they 'can't failover sharded databases reliably with current tooling,' which is a hard operational constraint. This technical limitation remains unaddressed even as the team discusses sharding as the solution to throughput requirements, creating an operational risk if sharding is implemented.
-- **decision_reversal**: The initial 5k req/min throughput target proposed by Alex is progressively walked back through the thread, with Jordan suggesting it might need to drop to 1k req/min instead of the 3k fallback Alex proposed.
-  - Why it matters: Alex's original target of 5k req/min is challenged by both Priya and Jordan due to infrastructure limitations. By EMAIL_6, Jordan proposes potentially reducing to 1k req/min 'if DB team says sharding isn't viable,' representing an 80% reduction from the original target and indicating the initial requirement may not be feasible.
+- **unresolved_dependency**: The performance engineering team (Priya/Jordan) cannot proceed with Q2 release planning because the database team has not resolved sharding concerns for the auth service. This is explicitly described as a 'hard blocker' preventing any throughput commitment.
+  - Why it matters: Priya explicitly states that committing to any throughput number without resolving the sharding question 'risks shipping a system that can't actually be deployed to production.' The entire Q2 release timeline is now dependent on database team input, with a proposed 2-week delay to resolve this dependency.
+- **unresolved_dependency**: Operations team (Jordan) cannot support higher throughput targets because current tooling cannot reliably failover sharded databases, creating a dependency on infrastructure upgrades before SLA commitments can be made.
+  - Why it matters: Jordan states this is 'a blocker on my end' that prevents the operations team from supporting the 99.95% SLA requirement. This blocks the team's ability to commit to the 5k req/min target and requires resolution before any final throughput decision can be made.
+- **decision_reversal**: Initial target of 5k req/min (EMAIL_1) is being walked back to potential alternatives of 3k req/min (EMAIL_4) or even 1k req/min (EMAIL_6) as technical constraints and blockers emerge.
+  - Why it matters: The scope of the Q2 release is being significantly reduced. Jordan explicitly suggests 'reducing to 1k req/min instead of 3k' if database sharding isn't viable, representing an 80% reduction from the original target. This impacts product commitments and customer expectations for Q2.
 
 ## Open Questions
-- Is 5k req/min realistic given current infrastructure?
-- Can the database team resolve or provide a workaround for the auth service sharding concern?
-- What is the final throughput target: 5k, 3k, or 1k req/min?
+- Is 5k req/min realistic given current infrastructure constraints?
+- Can the database team provide a viable sharding solution or workaround for the auth service?
+- What is the final throughput target for Q2 release - 5k, 3k, or 1k req/min?

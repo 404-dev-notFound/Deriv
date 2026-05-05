@@ -2,33 +2,34 @@
   "decisions": [
     {
       "decision_id": "D1",
-      "date": "2025-05-01T16:30:00Z",
-      "decision_text": "Priya will reach out to the database team regarding the sharding concern by end of week",
-      "made_by": "jordan@company.com",
-      "basis": "Action item assigned to address the sharding concern raised in the discussion about throughput targets",
-      "open_question_if_any": "What is the database team's assessment of sharding capabilities?",
+      "date": "2025-05-01",
+      "decision_text": "Priya will reach out to the database team regarding sharding concerns",
+      "made_by": "Priya (volunteered) and Jordan (confirmed in action plan)",
+      "basis": "Priya volunteered to contact the database team about sharding concerns in EMAIL_5. Jordan confirmed this action in the action plan outlined in EMAIL_6.",
+      "open_question_if_any": "What will be the database team's assessment of sharding capabilities and timeline?",
       "email_id_sources": [
+        "EMAIL_5",
         "EMAIL_6"
       ]
     },
     {
       "decision_id": "D2",
-      "date": "2025-05-01T16:30:00Z",
-      "decision_text": "Team will reconvene Thursday morning to decide on final throughput target after receiving database team's sharding assessment",
-      "made_by": "jordan@company.com",
-      "basis": "Decision deferred pending technical assessment from database team on sharding capabilities",
-      "open_question_if_any": "What will be the final throughput target based on database team's input?",
+      "date": "2025-05-01",
+      "decision_text": "Team will reconvene Thursday morning to decide on final throughput target after receiving DB team assessment",
+      "made_by": "Jordan",
+      "basis": "Jordan proposed in EMAIL_6 that the team should reconvene Thursday morning after Priya gets feedback from the database team, to make a final decision on the throughput target.",
+      "open_question_if_any": "What throughput target will be selected based on the database team's sharding assessment?",
       "email_id_sources": [
         "EMAIL_6"
       ]
     },
     {
       "decision_id": "D3",
-      "date": "2025-05-01T16:30:00Z",
-      "decision_text": "SLA implications will be confirmed based on final throughput decision",
-      "made_by": "jordan@company.com",
-      "basis": "SLA confirmation is dependent on the final throughput target decision to be made Thursday",
-      "open_question_if_any": "What are the final SLA implications once throughput target is confirmed?",
+      "date": "2025-05-01",
+      "decision_text": "Timeline: DB team sharding assessment due by next Tuesday, with team decision meeting on Thursday",
+      "made_by": "Jordan",
+      "basis": "Jordan established the timeline in EMAIL_6, stating that Priya should get the database team assessment by next Tuesday, followed by a team meeting on Thursday morning to finalize the throughput target decision.",
+      "open_question_if_any": "Will the database team be able to provide their assessment by the Tuesday deadline?",
       "email_id_sources": [
         "EMAIL_6"
       ]
