@@ -1,0 +1,60 @@
+{
+  "action_items": [
+    {
+      "action_id": "A1",
+      "owner": "priya@company.com",
+      "action": "Reach out to the database team regarding the sharding concern",
+      "deadline_if_stated": "end of week",
+      "status": "confirmed",
+      "email_id_sources": [
+        "EMAIL_4",
+        "EMAIL_6"
+      ],
+      "completion_email_id": null
+    },
+    {
+      "action_id": "A2",
+      "owner": "Database team",
+      "action": "Provide sharding assessment for auth service",
+      "deadline_if_stated": "next Tuesday",
+      "status": "requested",
+      "email_id_sources": [
+        "EMAIL_6"
+      ],
+      "completion_email_id": null
+    },
+    {
+      "action_id": "A3",
+      "owner": "alex@company.com, priya@company.com, jordan@company.com",
+      "action": "Reconvene to decide on final throughput target",
+      "deadline_if_stated": "Thursday morning",
+      "status": "confirmed",
+      "email_id_sources": [
+        "EMAIL_6"
+      ],
+      "completion_email_id": null
+    },
+    {
+      "action_id": "A4",
+      "owner": "alex@company.com, priya@company.com, jordan@company.com",
+      "action": "Confirm SLA implications based on final throughput decision",
+      "deadline_if_stated": null,
+      "status": "pending",
+      "email_id_sources": [
+        "EMAIL_6"
+      ],
+      "completion_email_id": null
+    },
+    {
+      "action_id": "A5",
+      "owner": "alex@company.com or priya@company.com or jordan@company.com",
+      "action": "Set up a meeting with the database team to get clarity on the sharding constraint",
+      "deadline_if_stated": null,
+      "status": "requested",
+      "email_id_sources": [
+        "EMAIL_4"
+      ],
+      "completion_email_id": null
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "decisions": [
+    {
+      "decision_id": "D1",
+      "decision_text": "Priya will reach out to the database team regarding the sharding concern by end of week",
+      "made_by": "jordan@company.com",
+      "date": "2025-05-01T16:30:00Z",
+      "confidence": "confirmed",
+      "email_id_sources": [
+        "EMAIL_6"
+      ]
+    },
+    {
+      "decision_id": "D2",
+      "decision_text": "Team will reconvene Thursday morning to decide on final throughput target after receiving database team's sharding assessment",
+      "made_by": "jordan@company.com",
+      "date": "2025-05-01T16:30:00Z",
+      "confidence": "confirmed",
+      "email_id_sources": [
+        "EMAIL_6"
+      ]
+    },
+    {
+      "decision_id": "D3",
+      "decision_text": "SLA implications will be confirmed based on final throughput decision",
+      "made_by": "jordan@company.com",
+      "date": "2025-05-01T16:30:00Z",
+      "confidence": "confirmed",
+      "email_id_sources": [
+        "EMAIL_6"
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "R1",
+      "risk_text": "5k req/min throughput target is aggressive and risky given current infrastructure, with database write bottleneck at scale",
+      "raised_by": "alex@company.com",
+      "severity": "high",
+      "email_id_sources": [
+        "EMAIL_1"
+      ]
+    },
+    {
+      "risk_id": "R2",
+      "risk_text": "Committing to 5k req/min requires 99.95% uptime SLA guarantee, which is a significant commitment increase from current 99.9%",
+      "raised_by": "priya@company.com",
+      "severity": "high",
+      "email_id_sources": [
+        "EMAIL_2",
+        "EMAIL_3"
+      ]
+    },
+    {
+      "risk_id": "R3",
+      "risk_text": "Cannot failover sharded databases reliably with current tooling",
+      "raised_by": "jordan@company.com",
+      "severity": "high",
+      "email_id_sources": [
+        "EMAIL_3"
+      ]
+    },
+    {
+      "risk_id": "R4",
+      "risk_text": "Committing to any specific throughput number without resolving the sharding question risks shipping a system that cannot be deployed to production",
+      "raised_by": "priya@company.com",
+      "severity": "critical",
+      "email_id_sources": [
+        "EMAIL_5"
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question_id": "Q1",
+      "question": "Is 5k req/min realistic given current infrastructure?",
+      "related_emails": [
+        "EMAIL_1"
+      ]
+    },
+    {
+      "question_id": "Q2",
+      "question": "Can the database team resolve or provide a workaround for the auth service sharding concern?",
+      "related_emails": [
+        "EMAIL_2",
+        "EMAIL_4",
+        "EMAIL_5"
+      ]
+    },
+    {
+      "question_id": "Q3",
+      "question": "What is the final throughput target: 5k, 3k, or 1k req/min?",
+      "related_emails": [
+        "EMAIL_4",
+        "EMAIL_5",
+        "EMAIL_6"
+      ]
+    },
+    {
+      "question_id": "Q4",
+      "question": "Should the Q2 release be delayed by 2 weeks to resolve database sharding concerns?",
+      "related_emails": [
+        "EMAIL_5",
+        "EMAIL_6"
+      ]
+    }
+  ],
+  "blockers": [
+    {
+      "blocker_id": "B1",
+      "blocker": "Database team is concerned about sharding the auth service",
+      "impact": "Prevents confirmation of any throughput target and deployment to production",
+      "email_id_sources": [
+        "EMAIL_2",
+        "EMAIL_3",
+        "EMAIL_4",
+        "EMAIL_5"
+      ]
+    },
+    {
+      "blocker_id": "B2",
+      "blocker": "Cannot failover sharded databases reliably with current tooling",
+      "impact": "Prevents reliable operations for any sharded database architecture required for higher throughput",
+      "email_id_sources": [
+        "EMAIL_3"
+      ]
+    },
+    {
+      "blocker_id": "B3",
+      "blocker": "SLA and monitoring infrastructure inadequate for 99.95% uptime commitment",
+      "impact": "Requires upgraded monitoring ($8k/year), 2 additional on-call team members, and 50+ new runbooks before committing to higher throughput targets",
+      "email_id_sources": [
+        "EMAIL_3"
+      ]
+    }
+  ]
+}

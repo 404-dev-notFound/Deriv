@@ -1,0 +1,178 @@
+{
+  "emails": [
+    {
+      "email_id": "EMAIL_1",
+      "from": "alex@company.com",
+      "to": [
+        "priya@company.com",
+        "jordan@company.com"
+      ],
+      "date": "2025-05-01T09:00:00Z",
+      "subject": "Q2 Platform Performance Requirements",
+      "body": "Hi team,\n\nWe need to finalize the performance requirements for our Q2 release. The current strategy targets 5k requests/min sustained throughput, but I'm concerned this might be aggressive given our current infrastructure.\n\nKey concerns:\n1. Database write bottleneck at scale\n2. Cache hit ratio needs to be monitored\n3. Load balancer config needs review\n\nWhat's everyone's take on this? Is 5k req/min realistic?\n\nBest,\nAlex",
+      "reply_to_inferred": null
+    },
+    {
+      "email_id": "EMAIL_2",
+      "from": "priya@company.com",
+      "to": [
+        "alex@company.com",
+        "jordan@company.com"
+      ],
+      "date": "2025-05-01T10:15:00Z",
+      "subject": "RE: Q2 Platform Performance Requirements",
+      "body": "Alex,\n\nI've been analyzing the load profile, and 5k req/min is technically feasible but risky. We'd need:\n- New database shards (2-3 additional)\n- Redis cluster upgrade to handle cache layer\n- Load testing budget of ~$15k\n\nThe database team is concerned about sharding the auth service. That's a blocker for us.\n\nAlso, we should discuss the SLA implications. If we commit to 5k req/min, we're looking at 99.95% uptime SLA guarantee. That's a big commitment.\n\nPriya",
+      "reply_to_inferred": "EMAIL_1"
+    },
+    {
+      "email_id": "EMAIL_3",
+      "from": "jordan@company.com",
+      "to": [
+        "alex@company.com",
+        "priya@company.com"
+      ],
+      "date": "2025-05-01T11:30:00Z",
+      "subject": "RE: Q2 Platform Performance Requirements",
+      "body": "Both,\n\nFrom the operations side, I can say that our current incident response SLA is 99.9%. Moving to 99.95% for a new platform will require:\n1. Upgraded monitoring (Prometheus + Grafana enterprise - $8k/year)\n2. On-call rotations (2 more team members)\n3. Runbooks for 50+ new failure scenarios\n\nI'm not saying it's impossible, but we need to resource this properly. The database sharding concern (mentioned by Priya) is also a blocker on my end\u2014we can't failover sharded databases reliably with current tooling.\n\nJordan",
+      "reply_to_inferred": "EMAIL_2"
+    },
+    {
+      "email_id": "EMAIL_4",
+      "from": "alex@company.com",
+      "to": [
+        "priya@company.com",
+        "jordan@company.com"
+      ],
+      "date": "2025-05-01T14:00:00Z",
+      "subject": "RE: Q2 Platform Performance Requirements",
+      "body": "Priya, Jordan,\n\nSo we have TWO blockers:\n1. Database sharding (auth service concern from DB team)\n2. SLA/monitoring infrastructure (ops concern from Jordan)\n\nI think we need to loop in the database team and get clarity on the sharding constraint. Can one of you set up a meeting with them?\n\nAlso, is there a middle-ground option? What if we go with 3k req/min initially and revisit 5k in Q3?\n\nLet me know thoughts.\n\nAlex",
+      "reply_to_inferred": "EMAIL_3"
+    },
+    {
+      "email_id": "EMAIL_5",
+      "from": "priya@company.com",
+      "to": [
+        "alex@company.com",
+        "jordan@company.com"
+      ],
+      "date": "2025-05-01T15:45:00Z",
+      "subject": "RE: Q2 Platform Performance Requirements",
+      "body": "Alex,\n\nI can reach out to the DB team on the sharding concern. That said, I want to flag a decision risk here:\n\nIf we commit to ANY specific throughput number right now without resolving the sharding question, we risk shipping a system that can't actually be deployed to production. The DB team's concern isn't a \"nice to have\"\u2014it's a hard blocker.\n\nMy recommendation: Let's delay the Q2 release by 2 weeks and have the DB team present their sharding solution/workaround. Then we can make an informed decision on the final throughput target.\n\nThe 3k req/min fallback is viable IF the DB team can confirm sharding is technically possible, even if risky.\n\nPriya",
+      "reply_to_inferred": "EMAIL_4"
+    },
+    {
+      "email_id": "EMAIL_6",
+      "from": "jordan@company.com",
+      "to": [
+        "alex@company.com",
+        "priya@company.com"
+      ],
+      "date": "2025-05-01T16:30:00Z",
+      "subject": "RE: Q2 Platform Performance Requirements",
+      "body": "I agree with Priya's risk assessment. A 2-week slip is better than shipping something that breaks in production.\n\nHere's what I propose:\n1. Priya reaches out to DB team (by EOW)\n2. We get their sharding assessment by next Tuesday\n3. We reconvene Thursday morning to decide on final throughput target\n4. We confirm SLA implications based on final throughput decision\n\nIf DB team says sharding isn't viable, we should consider reducing to 1k req/min instead of 3k. I'd rather be conservative here.\n\nJordan",
+      "reply_to_inferred": "EMAIL_5"
+    }
+  ],
+  "conversation_graph": {
+    "nodes": [
+      {
+        "id": "EMAIL_1",
+        "from": "alex@company.com",
+        "subject": "Q2 Platform Performance Requirements",
+        "date": "2025-05-01T09:00:00Z"
+      },
+      {
+        "id": "EMAIL_2",
+        "from": "priya@company.com",
+        "subject": "RE: Q2 Platform Performance Requirements",
+        "date": "2025-05-01T10:15:00Z"
+      },
+      {
+        "id": "EMAIL_3",
+        "from": "jordan@company.com",
+        "subject": "RE: Q2 Platform Performance Requirements",
+        "date": "2025-05-01T11:30:00Z"
+      },
+      {
+        "id": "EMAIL_4",
+        "from": "alex@company.com",
+        "subject": "RE: Q2 Platform Performance Requirements",
+        "date": "2025-05-01T14:00:00Z"
+      },
+      {
+        "id": "EMAIL_5",
+        "from": "priya@company.com",
+        "subject": "RE: Q2 Platform Performance Requirements",
+        "date": "2025-05-01T15:45:00Z"
+      },
+      {
+        "id": "EMAIL_6",
+        "from": "jordan@company.com",
+        "subject": "RE: Q2 Platform Performance Requirements",
+        "date": "2025-05-01T16:30:00Z"
+      }
+    ],
+    "edges": [
+      {
+        "from": "EMAIL_1",
+        "to": "EMAIL_2",
+        "type": "reply",
+        "reply_to_inferred": "EMAIL_1"
+      },
+      {
+        "from": "EMAIL_2",
+        "to": "EMAIL_3",
+        "type": "reply",
+        "reply_to_inferred": "EMAIL_2"
+      },
+      {
+        "from": "EMAIL_3",
+        "to": "EMAIL_4",
+        "type": "reply",
+        "reply_to_inferred": "EMAIL_3"
+      },
+      {
+        "from": "EMAIL_4",
+        "to": "EMAIL_5",
+        "type": "reply",
+        "reply_to_inferred": "EMAIL_4"
+      },
+      {
+        "from": "EMAIL_5",
+        "to": "EMAIL_6",
+        "type": "reply",
+        "reply_to_inferred": "EMAIL_5"
+      }
+    ],
+    "threads": [
+      {
+        "subject": "q2 platform performance requirements",
+        "emails": [
+          "EMAIL_1",
+          "EMAIL_2",
+          "EMAIL_3",
+          "EMAIL_4",
+          "EMAIL_5",
+          "EMAIL_6"
+        ]
+      }
+    ]
+  },
+  "subthreads": [
+    {
+      "subthread_id": "ST_1",
+      "subject": "Q2 Platform Performance Requirements",
+      "base_subject": "q2 platform performance requirements",
+      "email_ids": [
+        "EMAIL_1",
+        "EMAIL_2",
+        "EMAIL_3",
+        "EMAIL_4",
+        "EMAIL_5",
+        "EMAIL_6"
+      ],
+      "participant_count": 3,
+      "email_count": 6
+    }
+  ]
+}

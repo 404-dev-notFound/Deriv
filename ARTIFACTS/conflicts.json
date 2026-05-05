@@ -1,0 +1,64 @@
+{
+  "conflicts": [
+    {
+      "conflict_id": "C1",
+      "type": "unresolved_dependency",
+      "description": "The entire Q2 platform performance decision is blocked waiting on the database team to resolve auth service sharding concerns. Neither throughput target (5k, 3k, or 1k req/min) can be finalized until the database team provides their assessment.",
+      "severity": "critical",
+      "email_id_sources": [
+        "EMAIL_2",
+        "EMAIL_3",
+        "EMAIL_4",
+        "EMAIL_5",
+        "EMAIL_6"
+      ],
+      "why_it_matters": "Priya explicitly states that committing to any throughput number without resolving the sharding question 'risks shipping a system that can't actually be deployed to production.' This dependency blocks the entire Q2 release timeline and forces consideration of a 2-week delay."
+    },
+    {
+      "conflict_id": "C2",
+      "type": "unaddressed_risk",
+      "description": "The inability to reliably failover sharded databases with current tooling has been identified by Jordan as a blocker, but no solution or mitigation plan has been proposed or discussed in the thread.",
+      "severity": "high",
+      "email_id_sources": [
+        "EMAIL_3",
+        "EMAIL_6"
+      ],
+      "why_it_matters": "Jordan states they 'can't failover sharded databases reliably with current tooling,' which is a hard operational constraint. This technical limitation remains unaddressed even as the team discusses sharding as the solution to throughput requirements, creating an operational risk if sharding is implemented."
+    },
+    {
+      "conflict_id": "C3",
+      "type": "decision_reversal",
+      "description": "The initial 5k req/min throughput target proposed by Alex is progressively walked back through the thread, with Jordan suggesting it might need to drop to 1k req/min instead of the 3k fallback Alex proposed.",
+      "severity": "high",
+      "email_id_sources": [
+        "EMAIL_1",
+        "EMAIL_4",
+        "EMAIL_6"
+      ],
+      "why_it_matters": "Alex's original target of 5k req/min is challenged by both Priya and Jordan due to infrastructure limitations. By EMAIL_6, Jordan proposes potentially reducing to 1k req/min 'if DB team says sharding isn't viable,' representing an 80% reduction from the original target and indicating the initial requirement may not be feasible."
+    },
+    {
+      "conflict_id": "C4",
+      "type": "interpersonal_tension",
+      "description": "Priya and Jordan both push back against Alex's timeline and throughput targets, with Priya explicitly recommending a 2-week release delay and Jordan supporting this over Alex's preference to proceed with decisions.",
+      "severity": "medium",
+      "email_id_sources": [
+        "EMAIL_4",
+        "EMAIL_5",
+        "EMAIL_6"
+      ],
+      "why_it_matters": "Alex asks for a 'middle-ground option' and wants to move forward with decisions, but both Priya and Jordan advocate for delaying the Q2 release by 2 weeks. Priya's statement that the DB concern 'isn't a nice to have\u2014it's a hard blocker' directly challenges Alex's approach of trying to find workarounds or compromises before addressing the fundamental technical constraint."
+    },
+    {
+      "conflict_id": "C5",
+      "type": "blocked_action",
+      "description": "The action to confirm SLA implications cannot proceed because it depends on finalizing the throughput target, which itself is blocked by the database team's sharding assessment.",
+      "severity": "high",
+      "email_id_sources": [
+        "EMAIL_3",
+        "EMAIL_6"
+      ],
+      "why_it_matters": "Jordan explicitly states that SLA implications (including upgraded monitoring, additional team members, and 50+ runbooks) will be 'confirmed based on final throughput decision.' Since the throughput decision is blocked by the database team assessment, this cascading dependency prevents resource planning and commitment to operational requirements."
+    }
+  ]
+}

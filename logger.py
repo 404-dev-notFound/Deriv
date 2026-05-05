@@ -275,6 +275,11 @@ def log_validation_pass(artifact: str, checks: int):
     get_logger().validation_pass(artifact, checks)
 
 
+def log_validation_fail(artifact: str, error: str):
+    """Log validation failure."""
+    get_logger().error(f"Validation failed for {artifact}: {error}")
+
+
 def log_artifact_saved(filepath: str, records: int):
     """Log artifact saved."""
     get_logger().artifact_saved(filepath, records)

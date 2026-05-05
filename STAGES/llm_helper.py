@@ -32,8 +32,12 @@ def llm_call(
     try:
         if LLM_PROVIDER == "openrouter":
             # OpenRouter uses OpenAI-compatible API
+            # Prefix with anthropic/ if not already prefixed and it's a Claude model
+            or_model = model
+            if not or_model.startswith(("anthropic/", "openai/", "google/", "meta-llama/")) and "gpt" not in or_model:
+                or_model = f"anthropic/{or_model}"
             response = client.chat.completions.create(
-                model=model,
+                model=or_model,
                 max_tokens=4096,
                 temperature=0.7,
                 messages=[

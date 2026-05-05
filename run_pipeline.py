@@ -159,7 +159,7 @@ def run_pipeline():
 
         # Save parsed thread
         parsed_thread = {
-            "emails": [e.dict(by_alias=True) for e in emails],
+            "emails": [e.model_dump(by_alias=True) for e in emails],
             "conversation_graph": graph,
             "subthreads": subthreads,
         }

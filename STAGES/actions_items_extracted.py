@@ -6,30 +6,42 @@ Extracts action items with status taxonomy: confirmed, requested, implied, compl
 import json
 import hashlib
 import datetime
-from anthropic import Anthropic
-
-client = Anthropic()
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import get_llm_client, get_llm_model_name, LLM_PROVIDER, MAX_TOKENS
 
 
 def llm_call(stage: str, system: str, user_content: str, input_artifacts: list, output_artifact: str) -> str:
-    """Make an LLM call and log it to llm_calls.jsonl."""
+    """Make an LLM call using configured provider and log it to llm_calls.jsonl."""
     prompt_hash = hashlib.sha256((system + user_content).encode()).hexdigest()[:16]
+    client = get_llm_client()
+    model = get_llm_model_name()
 
-    response = client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=4096,
-        system=system,
-        messages=[{"role": "user", "content": user_content}],
-    )
-
-    result = response.content[0].text
+    if LLM_PROVIDER == "anthropic":
+        response = client.messages.create(
+            model=model,
+            max_tokens=MAX_TOKENS,
+            system=system,
+            messages=[{"role": "user", "content": user_content}],
+        )
+        result = response.content[0].text
+    else:  # openrouter uses OpenAI-compatible API
+        response = client.chat.completions.create(
+            model=f"anthropic/{model}" if not model.startswith("anthropic/") and "gpt" not in model else model,
+            max_tokens=MAX_TOKENS,
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": user_content},
+            ],
+        )
+        result = response.choices[0].message.content
 
     # Log the call
     log_entry = {
         "stage": stage,
         "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-        "provider": "anthropic",
-        "model": "claude-sonnet-4-20250514",
+        "provider": LLM_PROVIDER,
+        "model": model,
         "prompt_hash": prompt_hash,
         "input_artifacts": input_artifacts,
         "output_artifact": output_artifact,

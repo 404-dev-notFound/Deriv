@@ -6,10 +6,12 @@ Supports both Anthropic and OpenRouter
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# Try to load .env from current directory (for local development)
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # LLM Configuration
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openrouter").lower()  # "anthropic" or "openrouter"
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openrouter").lower()
 LLM_MODEL = os.getenv("LLM_MODEL", "claude-3.5-sonnet")
 
 # Anthropic Configuration (if using Anthropic directly)
@@ -45,16 +47,6 @@ def get_llm_client():
     else:
         raise ValueError(f"Unknown LLM provider: {LLM_PROVIDER}")
 
-
 def get_llm_model_name():
-    """Get LLM model name based on provider."""
-    if LLM_PROVIDER == "openrouter":
-        # Map friendly names to OpenRouter model IDs
-        model_map = {
-            "claude-3.5-sonnet": "anthropic/claude-3.5-sonnet",
-            "claude-3-sonnet": "anthropic/claude-3-sonnet",
-            "gpt-4": "openai/gpt-4",
-            "gpt-4-turbo": "openai/gpt-4-turbo",
-        }
-        return model_map.get(LLM_MODEL, f"anthropic/{LLM_MODEL}")
+    """Return the model name for the current provider."""
     return LLM_MODEL

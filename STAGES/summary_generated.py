@@ -40,7 +40,8 @@ def generate_executive_summary():
     if blockers:
         lines.append("\n## Key Blockers")
         for blocker in blockers[:3]:
-            lines.append(f"- **{blocker['blocker']}**: {blocker['impact']}")
+            blocker_text = blocker.get('blocker_text') or blocker.get('blocker', 'Unknown blocker')
+            lines.append(f"- **{blocker_text}**: {blocker.get('impact', 'No impact described')}")
     else:
         lines.append("\n## Key Blockers\nNone identified.")
 

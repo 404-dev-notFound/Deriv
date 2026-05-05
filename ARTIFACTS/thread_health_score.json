@@ -1,0 +1,22 @@
+{
+  "thread_health_score": {
+    "clarity_of_ownership": {
+      "score": 4,
+      "evidence": "EMAIL_6 clearly assigns Priya to reach out to database team by end of week (A1), and schedules Thursday morning reconvene with specific attendees (A3). Jordan explicitly owns decisions D1, D2, D3. Only minor ambiguity is 'Database team' as owner in A2 without specific individual named."
+    },
+    "decision_velocity": {
+      "score": 2,
+      "evidence": "Critical throughput decision (5k vs 3k vs 1k req/min) remains unmade after 6 emails spanning multiple days. EMAIL_6 defers final decision to 'Thursday morning' pending external input. C1 shows 'entire Q2 platform performance decision is blocked' with consideration of '2-week delay' to Q2 release timeline."
+    },
+    "risk_acknowledgement": {
+      "score": 3,
+      "evidence": "EMAIL_4 and EMAIL_6 explicitly flag sharding risk as blocking production deployment per Priya's statement about 'risks shipping a system that can't actually be deployed.' However, C2 identifies Jordan's failover limitation ('can't failover sharded databases reliably with current tooling') which 'remains unaddressed' with 'no solution or mitigation plan proposed' despite being identified as operational blocker."
+    },
+    "communication_quality": {
+      "score": 4,
+      "evidence": "Emails demonstrate professional discourse with clear technical reasoning (EMAIL_2, EMAIL_3, EMAIL_4 provide specific throughput analysis and constraints). EMAIL_6 provides structured next steps with specific deadlines and owners. Thread maintains focus on core issue. Minor deduction for C2 showing failover tooling constraint raised but not discussed or resolved."
+    },
+    "overall_health": 3,
+    "summary": "Thread shows good ownership clarity and professional communication, but suffers from stalled decision-making with critical Q2 decisions blocked on external dependency. Key risks are identified but not fully addressed (sharding acknowledged, failover tooling limitation unresolved). Team is organized but velocity is impaired by unresolved technical constraints."
+  }
+}

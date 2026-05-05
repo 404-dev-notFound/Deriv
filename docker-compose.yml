@@ -1,28 +1,9 @@
-version: '3.8'
-
 services:
   pipeline:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: email-analysis-pipeline
-    environment:
-      - LLM_PROVIDER=${LLM_PROVIDER:-openrouter}
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      - LLM_MODEL=${LLM_MODEL:-claude-3.5-sonnet}
-      - MAX_TOKENS=4096
-      - TEMPERATURE=0.7
+    env_file:
+      - .env
     volumes:
-      - ./data:/app/data:ro
-      - ./ARTIFACTS:/app/ARTIFACTS:rw
-      - ./llm_calls.jsonl:/app/llm_calls.jsonl:rw
-    working_dir: /app
-    command: python run_pipeline.py
-    restart: on-failure
-    networks:
-      - pipeline-net
-
-networks:
-  pipeline-net:
-    driver: bridge
+      - ./ARTIFACTS:/app/ARTIFACTS
+      - ./llm_calls.jsonl:/app/llm_calls.jsonl

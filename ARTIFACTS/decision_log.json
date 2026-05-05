@@ -1,0 +1,37 @@
+{
+  "decisions": [
+    {
+      "decision_id": "D1",
+      "date": "2025-05-01T16:30:00Z",
+      "decision_text": "Priya will reach out to the database team regarding the sharding concern by end of week",
+      "made_by": "jordan@company.com",
+      "basis": "Action item assigned to address the sharding concern raised in the discussion about throughput targets",
+      "open_question_if_any": "What is the database team's assessment of sharding capabilities?",
+      "email_id_sources": [
+        "EMAIL_6"
+      ]
+    },
+    {
+      "decision_id": "D2",
+      "date": "2025-05-01T16:30:00Z",
+      "decision_text": "Team will reconvene Thursday morning to decide on final throughput target after receiving database team's sharding assessment",
+      "made_by": "jordan@company.com",
+      "basis": "Decision deferred pending technical assessment from database team on sharding capabilities",
+      "open_question_if_any": "What will be the final throughput target based on database team's input?",
+      "email_id_sources": [
+        "EMAIL_6"
+      ]
+    },
+    {
+      "decision_id": "D3",
+      "date": "2025-05-01T16:30:00Z",
+      "decision_text": "SLA implications will be confirmed based on final throughput decision",
+      "made_by": "jordan@company.com",
+      "basis": "SLA confirmation is dependent on the final throughput target decision to be made Thursday",
+      "open_question_if_any": "What are the final SLA implications once throughput target is confirmed?",
+      "email_id_sources": [
+        "EMAIL_6"
+      ]
+    }
+  ]
+}
