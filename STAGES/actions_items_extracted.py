@@ -46,8 +46,8 @@ def llm_call(stage: str, system: str, user_content: str, input_artifacts: list, 
         "input_artifacts": input_artifacts,
         "output_artifact": output_artifact,
     }
-    with open("llm_calls.jsonl", "a") as f:
-        f.write(json.dumps(log_entry) + "\n")
+    with open("llm_calls.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
 
     return result
 
@@ -179,8 +179,8 @@ def extract_action_items():
         "action_items": extracted_data.get("action_items", [])
     }
 
-    with open("ARTIFACTS/action_items.json", "w") as f:
-        json.dump(output, f, indent=2)
+    with open("ARTIFACTS/action_items.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     print("[STAGE] Action items extracted and saved to ARTIFACTS/action_items.json")
     return output

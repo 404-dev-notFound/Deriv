@@ -46,8 +46,8 @@ def llm_call(stage: str, system: str, user_content: str, input_artifacts: list, 
         "input_artifacts": input_artifacts,
         "output_artifact": output_artifact,
     }
-    with open("llm_calls.jsonl", "a") as f:
-        f.write(json.dumps(log_entry) + "\n")
+    with open("llm_calls.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
 
     return result
 
@@ -232,8 +232,8 @@ def extract_facts_and_decisions():
         "blockers": extracted_data.get("blockers", []),
     }
 
-    with open("ARTIFACTS/facts_decisions.json", "w") as f:
-        json.dump(output, f, indent=2)
+    with open("ARTIFACTS/facts_decisions.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     print("[STAGE] Facts and decisions extracted and saved to ARTIFACTS/facts_decisions.json")
     return output

@@ -47,8 +47,8 @@ def llm_call(stage: str, system: str, user_content: str, input_artifacts: list, 
         "input_artifacts": input_artifacts,
         "output_artifact": output_artifact,
     }
-    with open("llm_calls.jsonl", "a") as f:
-        f.write(json.dumps(log_entry) + "\n")
+    with open("llm_calls.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
 
     return result
 
@@ -227,11 +227,11 @@ def draft_follow_ups():
         "follow_up_drafts": drafts
     }
 
-    with open("ARTIFACTS/follow_up_drafts.json", "w") as f:
-        json.dump(output, f, indent=2)
+    with open("ARTIFACTS/follow_up_drafts.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     # Also save as markdown for readability
-    with open("ARTIFACTS/follow_up_drafts.md", "w") as f:
+    with open("ARTIFACTS/follow_up_drafts.md", "w", encoding="utf-8") as f:
         f.write("# Follow-Up Drafts\n\n")
         for draft in drafts:
             f.write(f"## {draft.get('draft_id')}: {draft.get('subject')}\n")

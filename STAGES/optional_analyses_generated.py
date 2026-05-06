@@ -135,8 +135,8 @@ def generate_decision_log():
 
         extracted = parse_json_response(result)
 
-        with open("ARTIFACTS/decision_log.json", "w") as f:
-            json.dump(extracted, f, indent=2)
+        with open("ARTIFACTS/decision_log.json", "w", encoding="utf-8") as f:
+            json.dump(extracted, f, indent=2, ensure_ascii=False)
 
         print("[Optional] Decision log generated")
         return True
@@ -178,8 +178,8 @@ def generate_health_score():
 
         extracted = parse_json_response(result)
 
-        with open("ARTIFACTS/thread_health_score.json", "w") as f:
-            json.dump(extracted, f, indent=2)
+        with open("ARTIFACTS/thread_health_score.json", "w", encoding="utf-8") as f:
+            json.dump(extracted, f, indent=2, ensure_ascii=False)
 
         print("[Optional] Thread health score generated")
         return True
@@ -218,11 +218,11 @@ def generate_missing_stakeholders():
         extracted = parse_json_response(result)
 
         # Save as JSON
-        with open("ARTIFACTS/missing_stakeholders.json", "w") as f:
-            json.dump(extracted, f, indent=2)
+        with open("ARTIFACTS/missing_stakeholders.json", "w", encoding="utf-8") as f:
+            json.dump(extracted, f, indent=2, ensure_ascii=False)
 
         # Save as markdown for readability
-        with open("ARTIFACTS/missing_stakeholders.md", "w") as f:
+        with open("ARTIFACTS/missing_stakeholders.md", "w", encoding="utf-8") as f:
             f.write("# Missing Stakeholders Analysis\n\n")
             for stakeholder in extracted.get("missing_stakeholders", []):
                 f.write(f"## {stakeholder['role']}\n\n")
@@ -252,8 +252,8 @@ def generate_optional_analyses():
     }
 
     # Save summary of what was generated
-    with open("ARTIFACTS/optional_analyses_summary.json", "w") as f:
-        json.dump(results, f, indent=2)
+    with open("ARTIFACTS/optional_analyses_summary.json", "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2, ensure_ascii=False)
 
     success_count = sum(1 for v in results.values() if v)
     print(f"[STAGE] Optional analyses: {success_count}/3 completed")

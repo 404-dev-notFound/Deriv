@@ -71,8 +71,8 @@ def llm_call(
             "status": "error",
             "error": str(e),
         }
-        with open("llm_calls.jsonl", "a") as f:
-            f.write(json.dumps(log_entry) + "\n")
+        with open("llm_calls.jsonl", "a", encoding="utf-8") as f:
+            f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
 
         raise RuntimeError(error_msg)
 

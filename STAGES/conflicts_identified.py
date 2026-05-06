@@ -46,8 +46,8 @@ def llm_call(stage: str, system: str, user_content: str, input_artifacts: list, 
         "input_artifacts": input_artifacts,
         "output_artifact": output_artifact,
     }
-    with open("llm_calls.jsonl", "a") as f:
-        f.write(json.dumps(log_entry) + "\n")
+    with open("llm_calls.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
 
     return result
 
@@ -192,8 +192,8 @@ def identify_conflicts():
         "conflicts": extracted_data.get("conflicts", [])
     }
 
-    with open("ARTIFACTS/conflicts.json", "w") as f:
-        json.dump(output, f, indent=2)
+    with open("ARTIFACTS/conflicts.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     print("[STAGE] Conflicts identified and saved to ARTIFACTS/conflicts.json")
     return output

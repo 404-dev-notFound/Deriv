@@ -94,7 +94,7 @@ def generate_executive_summary():
     summary_text = "\n".join(lines)
 
     # Save as markdown
-    with open("ARTIFACTS/executive_summary.md", "w") as f:
+    with open("ARTIFACTS/executive_summary.md", "w", encoding="utf-8") as f:
         f.write(summary_text)
 
     # Also save as JSON for structured access
@@ -114,8 +114,8 @@ def generate_executive_summary():
         },
     }
 
-    with open("ARTIFACTS/executive_summary.json", "w") as f:
-        json.dump(summary_json, f, indent=2)
+    with open("ARTIFACTS/executive_summary.json", "w", encoding="utf-8") as f:
+        json.dump(summary_json, f, indent=2, ensure_ascii=False)
 
     print("[STAGE] Executive summary generated and saved to ARTIFACTS/executive_summary.md")
     return summary_text
